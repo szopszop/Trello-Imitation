@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from dotenv import load_dotenv
 from util import json_response
 import mimetypes
@@ -11,9 +11,17 @@ load_dotenv()
 
 @app.route("/")
 def index():
+    return render_template('index.html')
+
+
+@app.route("/", methods=["POST"])
+def index_post_board():
+    title = request.form['title']
+    new_board = queries.add_board(title)
     """
     This is a one-pager which shows all the boards and cards
     """
+    boards = queries.get_boards
     return render_template('index.html')
 
 
