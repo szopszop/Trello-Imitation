@@ -39,7 +39,7 @@ export let boardsManager = {
                 saveForm
             )
     },
-    addNewBoard: async function () {
+    displayNewBoard: async function () {
         const boards = await dataHandler.getBoards();
         const boardBuilder = htmlFactory(htmlTemplates.board);
         const content = boardBuilder(boards[boards.length - 1]);
@@ -60,6 +60,6 @@ function showHideButtonHandler(clickEvent) {
 async function saveForm() {
     const title = document.getElementById('add-board-input').value
     await dataHandler.createNewBoard(title);
-    boardsManager.addNewBoard();
+    boardsManager.displayNewBoard();
 }
 

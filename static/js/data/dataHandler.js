@@ -19,11 +19,13 @@ export let dataHandler = {
     },
     createNewBoard: async function (boardTitle) {
        return await apiPost("/api/boards", boardTitle)
-
     },
     createNewCard: async function (cardTitle, boardId, statusId) {
         // creates new card, saves it and calls the callback function with its data
     },
+    renameBoard: async function (boardTitle, boardId){
+        return await apiPut("/api/boards", boardTitle, boardId)
+    }
 };
 
 async function apiGet(url) {
@@ -49,7 +51,15 @@ async function apiPost(url, payload) {
 async function apiDelete(url) {
 }
 
-async function apiPut(url) {
+async function apiPut(url, payload, id) {
+    let response = await fetch(url, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({'payload': payload, 'id': id})
+    });
+    if (response.ok) {
+        return await response.json();
+    }
 }
 
 async function apiPatch(url) {
