@@ -74,5 +74,4 @@ async function editTitle(clickEvent) {
     const editFunc = htmlFactory(htmlTemplates.edit)
     const input = editFunc(board)
     clickEvent.target.innerHTML = input
-    // console.log(board.title)
 }
