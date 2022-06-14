@@ -23,7 +23,6 @@ def get_boards():
 @app.route("/api/board/<boardId>")
 @json_response
 def get_board(boardId):
-    print(queries.get_board(boardId))
     return queries.get_board(boardId)
 
 
