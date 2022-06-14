@@ -17,7 +17,19 @@ export let boardsManager = {
             );
         }
     },
+    addNewBoardButton: async function(){
+        let add = htmlFactory(htmlTemplates.button)
+        const content = add()
+        domManager.addChild("#form", content);
+        domManager.addEventListener(
+                `.addBoard`,
+                "click",
+                this.addBoard
+            )
+    },
     addBoard: async function(){
+        let addButton = document.getElementById('addBoard')
+        addButton.remove()
         let boardTitle = htmlFactory(htmlTemplates.form);
         const content = boardTitle();
         domManager.addChild("#form", content);
@@ -26,7 +38,18 @@ export let boardsManager = {
                 "click",
                 saveForm
             )
-    }
+    },
+    addNewBoard: async function () {
+        const boards = await dataHandler.getBoards();
+        const boardBuilder = htmlFactory(htmlTemplates.board);
+        const content = boardBuilder(boards[boards.length - 1]);
+        domManager.addChild("#root", content);
+        domManager.addEventListener(
+            `.toggle-board-button[data-board-id="${content.id}"]`,
+            "click",
+            showHideButtonHandler
+        );
+    },
 };
 
 function showHideButtonHandler(clickEvent) {
@@ -34,8 +57,9 @@ function showHideButtonHandler(clickEvent) {
     cardsManager.loadCards(boardId);
 }
 
-function saveForm() {
+async function saveForm() {
     const title = document.getElementById('add-board-input').value
-    dataHandler.createNewBoard(title);
+    await dataHandler.createNewBoard(title);
+    boardsManager.addNewBoard();
 }
 

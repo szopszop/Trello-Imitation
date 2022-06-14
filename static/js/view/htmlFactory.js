@@ -1,13 +1,16 @@
 export const htmlTemplates = {
     board: 1,
     card: 2,
-    form: 3
+    form: 3,
+    button: 4
+
 }
 
 export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
     [htmlTemplates.card]: cardBuilder,
-    [htmlTemplates.form]: formBuilder
+    [htmlTemplates.form]: formBuilder,
+    [htmlTemplates.button]: addBoardButtonBuilder
 };
 
 export function htmlFactory(template) {
@@ -41,3 +44,7 @@ function formBuilder(){
                     <button class='formButton' type="submit">SAVE</button>
                 </form>`;
     }
+
+export function addBoardButtonBuilder(){
+    return `<button id="addBoard" class="addBoard" type="submit">+ Add New Board +</button>`
+}

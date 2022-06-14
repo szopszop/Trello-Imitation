@@ -2,7 +2,7 @@ import {boardsManager} from "./controller/boardsManager.js";
 
 function init() {
     boardsManager.loadBoards();
-    boardsManager.addBoard();
+    boardsManager.addNewBoardButton();
 }
 
 init();
