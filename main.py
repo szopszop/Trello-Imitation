@@ -23,7 +23,8 @@ def index():
 @app.route("/api/boards", methods=['POST'])
 @json_response
 def add_board():
-    title = request.form['title']
+    title = request.data
+    print(title)
     return queries.add_board(title)
 
 
@@ -31,9 +32,6 @@ def add_board():
 @app.route("/get-boards")
 @json_response
 def get_boards():
-    """
-    All the boards
-    """
     return queries.get_boards()
 
 
