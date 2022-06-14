@@ -20,6 +20,12 @@ def index():
     return render_template('index.html')
 
 
+@app.route("/api/boards")
+@json_response
+def get_boards():
+    return queries.get_boards()
+
+
 @app.route("/api/boards", methods=['POST'])
 @json_response
 def add_board():
@@ -32,11 +38,19 @@ def add_board():
         return 'Content-Type not supported!'
 
 
+@app.route("/api/boards", methods=['PUT'])
 @app.route("/api/boards")
 @app.route("/get-boards")
 @json_response
-def get_boards():
-    return queries.get_boards()
+def update_board():
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json = request.json
+        new_title = json.get('payload')
+        id_ = json.get('id')
+        return queries.rename_board(new_title, id_)
+    else:
+        return 'Content-Type not supported!'
 
 
 @app.route("/api/boards/<int:board_id>/cards/")
