@@ -17,9 +17,14 @@ def index():
 @app.route("/api/boards", methods=['POST'])
 @json_response
 def add_board():
-    title = request.data
-    print(title)
-    return queries.add_board(title)
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json = request.json
+        title = json.get('payload')
+        print(title)
+        return queries.add_board(title)
+    else:
+        return 'Content-Type not supported!'
 
 
 @app.route("/api/boards")
