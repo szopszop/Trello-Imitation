@@ -31,6 +31,20 @@ def get_boards():
     )
 
 
+def get_board(board_id):
+    """
+    Gather all boards
+    :return:
+    """
+    return data_manager.execute_select(
+        """
+        SELECT * FROM boards
+        WHERE id = %(board_id)s
+        ;
+        """, {"board_id": board_id}, fetchall=False
+    )
+
+
 def get_cards_for_board(board_id):
     matching_cards = data_manager.execute_select(
         """

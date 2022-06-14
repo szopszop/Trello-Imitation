@@ -15,6 +15,11 @@ export let boardsManager = {
                 "click",
                 showHideButtonHandler
             );
+            domManager.addEventListener(
+                `.board[data-board-id="${board.id}"]`,
+                "click",
+                editTitle
+            );
         }
     },
     addNewBoardButton: async function(){
@@ -63,3 +68,11 @@ async function saveForm() {
     boardsManager.displayNewBoard();
 }
 
+async function editTitle(clickEvent) {
+    const boardId = clickEvent.target.dataset.boardId;
+    const board = await dataHandler.getBoard(boardId)
+    const editFunc = htmlFactory(htmlTemplates.edit)
+    const input = editFunc(board)
+    clickEvent.target.innerHTML = input
+    // console.log(board.title)
+}

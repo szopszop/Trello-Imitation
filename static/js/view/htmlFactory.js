@@ -2,7 +2,8 @@ export const htmlTemplates = {
     board: 1,
     card: 2,
     form: 3,
-    button: 4
+    button: 4,
+    edit: 5
 
 }
 
@@ -10,7 +11,8 @@ export const builderFunctions = {
     [htmlTemplates.board]: boardBuilder,
     [htmlTemplates.card]: cardBuilder,
     [htmlTemplates.form]: formBuilder,
-    [htmlTemplates.button]: addBoardButtonBuilder
+    [htmlTemplates.button]: addBoardButtonBuilder,
+    [htmlTemplates.edit]: formEditTitleBuilder
 };
 
 export function htmlFactory(template) {
@@ -44,6 +46,13 @@ function formBuilder(){
                 </form>`;
     }
 
-export function addBoardButtonBuilder(){
+function formEditTitleBuilder(board){
+        return `<form method="put" action="javascript:void(0)">
+                    <input id='edit-board-input' type="text" name="title" value="${board.title}">
+                    <button class='formButton' type="submit">UPDATE</button>
+                </form>`;
+    }
+
+function addBoardButtonBuilder(){
     return `<button id="addBoard" class="addBoard" type="submit">+ Add New Board +</button>`
 }
