@@ -12,6 +12,7 @@ function init() {
     dom.loadBoards();
 
     boardsManager.addBoard();
+    boardsManager.addNewBoardButton();
 }
 
 init();
