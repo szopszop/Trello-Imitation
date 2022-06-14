@@ -36,8 +36,8 @@ function cardBuilder(card) {
 
 function formBuilder(){
         return `<form method="post" action="javascript:void(0)">
-                    <input id='input' type="text" name="title">
-                    <label for="input">Title</label>
+                    <input id='add-board-input' type="text" name="title">
+                    <label for="add-board-input">Title</label>
                     <button class='formButton' type="submit">SAVE</button>
                 </form>`;
     }

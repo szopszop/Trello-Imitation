@@ -27,7 +27,6 @@ def add_board():
     if content_type == 'application/json':
         json = request.json
         title = json.get('payload')
-        print(title)
         return queries.add_board(title)
     else:
         return 'Content-Type not supported!'

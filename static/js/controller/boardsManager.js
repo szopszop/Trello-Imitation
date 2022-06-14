@@ -20,7 +20,6 @@ export let boardsManager = {
     addBoard: async function(){
         let boardTitle = htmlFactory(htmlTemplates.form);
         const content = boardTitle();
-        await dataHandler.createNewBoard(boardTitle);
         domManager.addChild("#form", content);
         domManager.addEventListener(
                 `.formButton`,
@@ -35,9 +34,8 @@ function showHideButtonHandler(clickEvent) {
     cardsManager.loadCards(boardId);
 }
 
-function saveForm(clickEvent) {
-
-    const formBoard = clickEvent.target.dataset.formBoard;
-    dataHandler.createNewBoard()
+function saveForm() {
+    const title = document.getElementById('add-board-input').value
+    dataHandler.createNewBoard(title);
 }
 
