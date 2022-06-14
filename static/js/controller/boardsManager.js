@@ -17,9 +17,24 @@ export let boardsManager = {
             );
         }
     },
+    addBoard: async function(){
+        let boardTitle = htmlFactory(htmlTemplates.form);
+
+        await dataHandler.createNewBoard(boardTitle);
+        domManager.addChild("#form", boardTitle);
+        domManager.addEventListener(
+                `.formButton`,
+                "click",
+                showButtonForm
+            )
+    }
 };
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
     cardsManager.loadCards(boardId);
+}
+function showButtonForm(clickEvent) {
+const formBoard = clickEvent.target.dataset.formBoard;
+
 }
