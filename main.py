@@ -20,15 +20,11 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/", methods=["POST"])
-def index_post_board():
+@app.route("/api/boards", methods=['POST'])
+@json_response
+def add_board():
     title = request.form['title']
-    new_board = queries.add_board(title)
-    """
-    This is a one-pager which shows all the boards and cards
-    """
-    boards = queries.get_boards
-    return render_template('index.html')
+    return queries.add_board(title)
 
 
 @app.route("/api/boards")
