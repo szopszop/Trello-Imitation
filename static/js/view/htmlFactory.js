@@ -4,7 +4,6 @@ export const htmlTemplates = {
     form: 3,
     button: 4,
     edit: 5
-
 }
 
 export const builderFunctions = {
