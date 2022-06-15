@@ -27,7 +27,11 @@ export function htmlFactory(template) {
     };
 }
 
-function boardBuilder(board) {
+function boardBuilder(board, edit=false) {
+    if (edit) {
+        return `<div class="board-container">
+                    <div class="board" data-board-id=${board.id}>${board.title}</div>
+                </div>`;}
     return `<div class="board-container">
                 <div class="board" data-board-id=${board.id}>${board.title}</div>
                 <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
@@ -48,8 +52,8 @@ function formBuilder(){
 
 function formEditTitleBuilder(board){
         return `<form method="put" action="javascript:void(0)">
-                    <input id='edit-board-input' type="text" name="title" value="${board.title}">
-                    <button class='formButton' type="submit">UPDATE</button>
+                    <input id='edit-board${board.id}-input' type="text" name="title" value="${board.title}">
+                    <button class='formButton' data-board-id="${board.id}" type="submit">UPDATE</button>
                 </form>`;
     }
 
