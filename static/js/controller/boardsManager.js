@@ -73,5 +73,23 @@ async function editTitle(clickEvent) {
     const board = await dataHandler.getBoard(boardId)
     const editFunc = htmlFactory(htmlTemplates.edit)
     const input = editFunc(board)
-    clickEvent.target.innerHTML = input
+    clickEvent.target.outerHTML = input
+    domManager.addEventListener(
+        `.formButton[data-board-id="${board.id}"]`,
+        "click",
+        changeTitle
+    );
+}
+
+async function changeTitle(clickEvent) {
+    const boardId = clickEvent.target.dataset.boardId;
+    const newTitle = document.getElementById(`edit-board${boardId}-input`).value;
+    dataHandler.renameBoard(newTitle, boardId);
+    const updateBoard = htmlFactory(htmlTemplates.board)
+    clickEvent.target.parentElement.outerHTML = updateBoard({'title': newTitle, 'id': boardId}, true)
+    domManager.addEventListener(
+        `.board[data-board-id="${boardId}"]`,
+        "click",
+        editTitle
+    );
 }
