@@ -16,7 +16,7 @@ export let boardsManager = {
                 showHideButtonHandler
             );
             domManager.addEventListener(
-                `.board[data-board-id="${board.id}"]`,
+                `.board-title[data-board-id="${board.id}"]`,
                 "click",
                 editTitle
             );
@@ -88,7 +88,7 @@ async function changeTitle(clickEvent) {
     const updateBoard = htmlFactory(htmlTemplates.board)
     clickEvent.target.parentElement.outerHTML = updateBoard({'title': newTitle, 'id': boardId}, true)
     domManager.addEventListener(
-        `.board[data-board-id="${boardId}"]`,
+        `.board-title[data-board-id="${boardId}"]`,
         "click",
         editTitle
     );

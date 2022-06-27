@@ -29,17 +29,53 @@ export function htmlFactory(template) {
 
 function boardBuilder(board, edit=false) {
     if (edit) {
-        return `<div class="board-container">
-                    <div class="board" data-board-id=${board.id}>${board.title}</div>
-                </div>`;}
+        return `
+                    <span class="board-title" data-board-id=${board.id}>${board.title}</span>
+                `;}
     return `<div class="board-container">
-                <div class="board" data-board-id=${board.id}>${board.title}</div>
-                <button class="toggle-board-button" data-board-id="${board.id}">Show Cards</button>
+                <section class="board" data-board-id=${board.id}>
+                
+                <div class="board-header"><span class="board-title" data-board-id=${board.id}>${board.title}</span>
+                    <button class="board-add">Add Card</button>
+                    <button class="toggle-board-button" data-board-id="${board.id}">Show</button>
+                </div>
+                
+                </section>
             </div>`;
 }
 
 function cardBuilder(card) {
-    return `<div class="card" data-card-id="${card.id}">${card.title}</div>`;
+    return `<div class="board-columns">
+                <div class="board-column">
+                    <div class="board-column-title">New</div>
+                    <div class="board-column-content">
+                        <div class="card" data-card-id="${card.id}">${card.title}</div>
+                    </div>
+                </div>
+                
+                <div class="board-column">
+                    <div class="board-column-title">In Progress</div>
+                    <div class="board-column-content">
+                        
+                    </div>
+                </div>
+                
+                <div class="board-column">
+                    <div class="board-column-title">Testing</div>
+                    <div class="board-column-content">
+                        
+                    </div>
+                </div>
+                
+                <div class="board-column">
+                    <div class="board-column-title">Done</div>
+                    <div class="board-column-content">
+                        
+                    </div>
+                </div>
+    </div>`;
+
+
 }
 
 function formBuilder(){

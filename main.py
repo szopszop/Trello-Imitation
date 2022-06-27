@@ -46,6 +46,8 @@ def update_board():
         json = request.json
         new_title = json.get('payload')
         id_ = json.get('id')
+        print(id_)
+        print(new_title)
         return queries.rename_board(new_title, id_)
     else:
         return 'Content-Type not supported!'
