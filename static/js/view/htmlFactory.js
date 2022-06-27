@@ -40,25 +40,25 @@ function boardBuilder(board, edit=false) {
                 </div>
             
             <div class="board-columns">
-                <div class="board-column">
+                <div class="board-column new">
                     <div class="board-column-title">New</div>
                     <div class="board-column-content">
                     </div>
                 </div>
                 
-                <div class="board-column">
+                <div class="board-column progress">
                     <div class="board-column-title">In Progress</div>
                     <div class="board-column-content">
                     </div>
                 </div>
                 
-                <div class="board-column">
+                <div class="board-column testing">
                     <div class="board-column-title">Testing</div>
                     <div class="board-column-content">
                     </div>
                 </div>
                 
-                <div class="board-column">
+                <div class="board-column done">
                     <div class="board-column-title">Done</div>
                     <div class="board-column-content">
                         

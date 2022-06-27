@@ -6,10 +6,11 @@ export let cardsManager = {
     loadCards: async function (boardId) {
         const cards = await dataHandler.getCardsByBoardId(boardId);
         for (let card of cards) {
-            console.log(card)
             const cardBuilder = htmlFactory(htmlTemplates.card);
             const content = cardBuilder(card);
-            domManager.addChild(`#root > div:${card.status_id} > section > div.board-columns > div:${card.id} > div.board-column-content`, content);
+            let parent = document.querySelector(`.board[data-board-id="${boardId}"]`).children[1].children[card["status_id"]].children[1]
+            parent.innerHTML += content
+            // domManager.addChild(`.board[data-board-id="${boardId}"]`, content);
             domManager.addEventListener(
                 `.card[data-card-id="${card.id}"]`,
                 "click",
