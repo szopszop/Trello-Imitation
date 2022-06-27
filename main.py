@@ -20,10 +20,10 @@ def get_boards():
     return queries.get_boards()
 
 
-@app.route("/api/board/<boardId>")
+@app.route("/api/boards/<board_id>")
 @json_response
-def get_board(boardId):
-    return queries.get_board(boardId)
+def get_board(board_id):
+    return queries.get_board(board_id)
 
 
 @app.route("/api/boards", methods=['POST'])
@@ -38,16 +38,14 @@ def add_board():
         return 'Content-Type not supported!'
 
 
-@app.route("/api/boards", methods=['PUT'])
+@app.route("/api/boards/<board_id>", methods=['PUT'])
 @json_response
-def update_board():
+def update_board(board_id):
     content_type = request.headers.get('Content-Type')
     if content_type == 'application/json':
         json = request.json
         new_title = json.get('payload')
         id_ = json.get('id')
-        print(id_)
-        print(new_title)
         return queries.rename_board(new_title, id_)
     else:
         return 'Content-Type not supported!'

@@ -47,13 +47,20 @@ export let boardsManager = {
     displayNewBoard: async function () {
         const boards = await dataHandler.getBoards();
         const boardBuilder = htmlFactory(htmlTemplates.board);
+        const boardId = boards[boards.length - 1].id
         const content = boardBuilder(boards[boards.length - 1]);
         domManager.addChild("#root", content);
         domManager.addEventListener(
-            `.toggle-board-button[data-board-id="${content.id}"]`,
+            `.toggle-board-button[data-board-id="${boardId}"]`,
             "click",
             showHideButtonHandler
         );
+        domManager.addEventListener(
+            `.board[data-board-id="${boardId}"]`,
+            "click",
+            editTitle
+        );
+        console.log(boardId)
     },
 };
 
