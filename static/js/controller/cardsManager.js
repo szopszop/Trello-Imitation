@@ -8,7 +8,7 @@ export let cardsManager = {
         for (let card of cards) {
             const cardBuilder = htmlFactory(htmlTemplates.card);
             const content = cardBuilder(card);
-            let parent = document.querySelector(`.board[data-board-id="${boardId}"]`).children[1].children[card["status_id"]].children[1]
+            let parent = document.querySelector(`.board[data-board-id="${boardId}"]`).children[1].children[card["status_id"]-1].children[1]
             parent.innerHTML += content
             // domManager.addChild(`.board[data-board-id="${boardId}"]`, content);
             domManager.addEventListener(
