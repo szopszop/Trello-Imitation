@@ -38,31 +38,23 @@ function boardBuilder(board, edit=false) {
                     <button class="board-add">Add Card</button>
                     <button class="toggle-board-button" data-board-id="${board.id}">Show</button>
                 </div>
-                
-                </section>
-            </div>`;
-}
-
-function cardBuilder(card) {
-    return `<div class="board-columns">
+            
+            <div class="board-columns">
                 <div class="board-column">
                     <div class="board-column-title">New</div>
                     <div class="board-column-content">
-                        <div class="card" data-card-id="${card.id}">${card.title}</div>
                     </div>
                 </div>
                 
                 <div class="board-column">
                     <div class="board-column-title">In Progress</div>
                     <div class="board-column-content">
-                        
                     </div>
                 </div>
                 
                 <div class="board-column">
                     <div class="board-column-title">Testing</div>
                     <div class="board-column-content">
-                        
                     </div>
                 </div>
                 
@@ -72,9 +64,14 @@ function cardBuilder(card) {
                         
                     </div>
                 </div>
-    </div>`;
+            </div>
+    
+    </section>
+</div>`;
+}
 
-
+function cardBuilder(card) {
+    return  `<div class="card" data-card-id="${card.id}" >${card.title}</div>`;
 }
 
 function formBuilder(){
