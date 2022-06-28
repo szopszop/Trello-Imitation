@@ -64,7 +64,7 @@ export let boardsManager = {
     },
     reloadBoards: async function () {
         const boardsIdToLoad = checkForLoadedContent();
-
+        console.log(boardsIdToLoad, 'board to load')
         const boards = document.querySelectorAll('section.board');
         boards.forEach(board => {
             board.remove();
