@@ -1,18 +1,26 @@
-from flask import Flask, render_template, url_for, request, session, jsonify, redirect
-from dotenv import load_dotenv
-from util import json_response
+from flask import Flask, render_template, url_for, session, request, jsonify, redirect
+from flask_socketio import SocketIO
+from flask_cors import CORS
 import mimetypes
 import queries
 import auth
 import os
 import psycopg2
 
+from util import json_response
+
+app = Flask(__name__)
+CORS(app)
+socketio = SocketIO(app)
+
 
 mimetypes.add_type('application/javascript', '.js')
-app = Flask(__name__)
-load_dotenv()
-
 app.secret_key = '0e7481098709f45cf9c22425be8d2112150d342e7cfb0bd4'
+
+
+@socketio.on('message')
+def handle_msg(msg):
+    socketio.send('Syncing...')
 
 
 @app.route("/")
@@ -105,7 +113,9 @@ def post_logout():
 
 
 def main():
-    app.run(debug=True)
+    socketio.run(app, debug=True)
+    # app.run(debug=True)
+
 
     # Serving the favicon
     with app.app_context():
