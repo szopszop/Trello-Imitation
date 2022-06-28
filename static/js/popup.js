@@ -26,14 +26,17 @@ const closePopup = element => {
     element.style.display = 'none'
 }
 
-loginButton.addEventListener('click', () => {
-    showPopup(loginPopup);
-})
+if (loginButton) {
+    loginButton.addEventListener('click', () => {
 
-registerButton.addEventListener('click', () => {
-    showPopup(registerPopup);
-})
-
+        showPopup(loginPopup);
+    })
+}
+if (registerButton) {
+    registerButton.addEventListener('click', () => {
+        showPopup(registerPopup);
+    })
+}
 popUps.forEach(popUp => {
     popUp.addEventListener('click', () => {
         popUp.classList.remove('fade-in')
