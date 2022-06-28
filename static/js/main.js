@@ -17,7 +17,7 @@ function init() {
     //live sync
     socket.on('message', function(msg) {
         console.log(msg);
-        // boardsManager.reloadBoards(userId);
+        boardsManager.reloadBoards();
     });
 }
 
