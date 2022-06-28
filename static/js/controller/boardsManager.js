@@ -7,7 +7,7 @@ export let boardsManager = {
     loadBoards: async function () {
         const boards = await dataHandler.getBoards();
         for (let board of boards) {
-            const boardBuilder = htmlFactory(htmlTemplates.board);
+            const boardBuilder = await htmlFactory(htmlTemplates.board);
             const content = boardBuilder(board);
             domManager.addChild("#root", content);
             domManager.addEventListener(
@@ -20,10 +20,15 @@ export let boardsManager = {
                 "click",
                 editTitle
             );
+            domManager.addEventListener(
+                `.add-card[data-board-id="${board.id}"]`,
+                'click',
+                saveCard
+            );
         }
     },
     addNewBoardButton: async function(){
-        let add = htmlFactory(htmlTemplates.button)
+        const add = htmlFactory(htmlTemplates.button)
         const content = add()
         domManager.addChild("#form", content);
         domManager.addEventListener(
@@ -35,7 +40,7 @@ export let boardsManager = {
     addBoard: async function(){
         let addButton = document.getElementById('addBoard')
         addButton.remove()
-        let boardTitle = htmlFactory(htmlTemplates.form);
+        const boardTitle = htmlFactory(htmlTemplates.form);
         const content = boardTitle();
         domManager.addChild("#form", content);
         domManager.addEventListener(
@@ -60,9 +65,12 @@ export let boardsManager = {
             "click",
             editTitle
         );
-        console.log(boardId)
     },
 };
+
+async function saveCard(clickEvent) {
+    console.log(clickEvent.target)
+}
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;

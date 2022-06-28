@@ -35,7 +35,7 @@ function boardBuilder(board, edit=false) {
                 <section class="board" data-board-id=${board.id}>
                 
                 <div class="board-header"><span class="board-title" data-board-id=${board.id}>${board.title}</span>
-                    <button class="board-add">Add Card</button>
+                    <button class="add-card" data-board-id="${board.id}">Add Card</button>
                     <button class="toggle-board-button" data-board-id="${board.id}">Show</button>
                 </div>
             

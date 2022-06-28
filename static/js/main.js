@@ -1,8 +1,8 @@
 import {boardsManager} from "./controller/boardsManager.js";
 
-function init() {
-    boardsManager.loadBoards();
-    boardsManager.addNewBoardButton();
+async function init() {
+    await boardsManager.loadBoards();
+    await boardsManager.addNewBoardButton();
 }
 
 init();
