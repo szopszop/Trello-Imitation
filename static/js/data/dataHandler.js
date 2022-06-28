@@ -24,7 +24,7 @@ export let dataHandler = {
         // creates new card, saves it and calls the callback function with its data
     },
     renameBoard: async function (boardTitle, boardId){
-        return await apiPut(`/api/boards/${boardId}`, boardTitle)
+        return await apiPut(`/api/boards/${boardId}`, {'title': boardTitle, 'id': boardId})
     }
 };
 
@@ -55,7 +55,7 @@ async function apiPut(url, payload) {
     let response = await fetch(url, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({'payload': payload})
+        body: JSON.stringify({'title': payload.title, 'id': payload.id})
     });
     if (response.ok) {
         return await response.json();

@@ -24,6 +24,11 @@ DROP TABLE IF EXISTS cards;
 ---
 --- create tables
 ---
+CREATE TABLE users (
+    id          SERIAL PRIMARY KEY  NOT NULL,
+    username    VARCHAR(200)        NOT NULL,
+    password    VARCHAR(200)        NOT NULL
+);
 
 CREATE TABLE statuses (
     id       SERIAL PRIMARY KEY     NOT NULL,
