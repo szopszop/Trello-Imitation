@@ -73,7 +73,7 @@ export let boardsManager = {
 
         boardsIdToLoad.forEach(boardId => {
             loadBoardContent(boardId);
-            domManager.toggleCSSClasses(`.fas[data-board-id="${boardId}"]`, 'fa-chevron-down', 'fa-chevron-up');
+            // domManager.toggleCSSClasses(`.fas[data-board-id="${boardId}"]`, 'fa-chevron-down', 'fa-chevron-up');
         });
     },
 };

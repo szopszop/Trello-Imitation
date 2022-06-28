@@ -8,11 +8,11 @@ function init() {
     boardsManager.addNewBoardButton();
 
 
-    //manual sync
-    // const refreshButton = document.querySelector('#manual-sync');
-    // refreshButton.addEventListener('click', () => {
-    //     // boardsManager.reloadBoards(userId);
-    // });
+    // manual sync
+    const refreshButton = document.querySelector('#reload');
+    refreshButton.addEventListener('click', () => {
+        boardsManager.reloadBoards();
+    });
 
     //live sync
     socket.on('message', function(msg) {
