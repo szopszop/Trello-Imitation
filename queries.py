@@ -69,7 +69,7 @@ def rename_board(title, id_):
     data_manager.execute_dml_statement(
         """
         UPDATE boards
-        SET title = (%(new_title)s)
+        SET title = %(new_title)s
         WHERE id = %(board_id)s;
         """, {"new_title": title,
               "board_id": id_})

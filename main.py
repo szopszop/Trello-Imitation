@@ -47,7 +47,7 @@ def update_board(board_id):
     content_type = request.headers.get('Content-Type')
     if content_type == 'application/json':
         json = request.json
-        new_title = json.get('payload')
+        new_title = json.get('title')
         id_ = json.get('id')
         return queries.rename_board(new_title, id_)
     else:
