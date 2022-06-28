@@ -22,27 +22,27 @@ export let boardsManager = {
             );
         }
     },
-    addNewBoardButton: async function(){
+    addNewBoardButton: async function () {
         let add = htmlFactory(htmlTemplates.button)
         const content = add()
         domManager.addChild("#form", content);
         domManager.addEventListener(
-                `.addBoard`,
-                "click",
-                this.addBoard
-            )
+            `.addBoard`,
+            "click",
+            this.addBoard
+        )
     },
-    addBoard: async function(){
+    addBoard: async function () {
         let addButton = document.getElementById('addBoard')
         addButton.remove()
         let boardTitle = htmlFactory(htmlTemplates.form);
         const content = boardTitle();
         domManager.addChild("#form", content);
         domManager.addEventListener(
-                `.formButton`,
-                "click",
-                saveForm
-            )
+            `.formButton`,
+            "click",
+            saveForm
+        )
     },
     displayNewBoard: async function () {
         const boards = await dataHandler.getBoards();
@@ -62,6 +62,20 @@ export let boardsManager = {
         );
         console.log(boardId)
     },
+    reloadBoards: async function () {
+        const boardsIdToLoad = checkForLoadedContent();
+
+        const boards = document.querySelectorAll('section.board');
+        boards.forEach(board => {
+            board.remove();
+        });
+        await this.loadBoards();
+
+        boardsIdToLoad.forEach(boardId => {
+            loadBoardContent(boardId);
+            domManager.toggleCSSClasses(`.fas[data-board-id="${boardId}"]`, 'fa-chevron-down', 'fa-chevron-up');
+        });
+    },
 };
 
 function showHideButtonHandler(clickEvent) {
@@ -73,6 +87,8 @@ async function saveForm() {
     const title = document.getElementById('add-board-input').value
     await dataHandler.createNewBoard(title);
     boardsManager.displayNewBoard();
+    socket.send('aaaaaaaaaaaaaaaaaaaa');
+
 }
 
 async function editTitle(clickEvent) {
@@ -101,4 +117,20 @@ async function changeTitle(clickEvent) {
         "click",
         editTitle
     );
+}
+
+function checkForLoadedContent() {
+    const openedBoardsId = [];
+    const boardsContent = document.querySelectorAll('div.board-columns');
+    boardsContent.forEach(boardContent => {
+        if (boardContent.hasChildNodes()) {
+            openedBoardsId.push(boardContent.dataset.boardId);
+            boardContent.innerHTML = '';
+        }
+    });
+    return openedBoardsId
+}
+
+async function loadBoardContent(boardId) {
+    await cardsManager.loadCards(boardId);
 }
