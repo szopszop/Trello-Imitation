@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, session, jsonify, redirect
 from dotenv import load_dotenv
 from util import json_response
 import mimetypes
 import queries
+import auth
 import os
 import psycopg2
 
@@ -11,10 +12,13 @@ mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
 
+app.secret_key = '0e7481098709f45cf9c22425be8d2112150d342e7cfb0bd4'
+
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    user = queries.get_user_by_username((session.get('username')))
+    return render_template('index.html', user=user)
 
 
 @app.route("/api/boards")
@@ -62,6 +66,42 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
     return queries.get_cards_for_board(board_id)
+
+
+@app.route('/register', methods=['POST'])
+def post_register_page():
+    user_data = request.get_json()
+    print(user_data)
+    username = user_data['username']
+    password_1 = user_data['password']
+    password_2 = user_data['password2']
+    if not queries.get_user_by_username(username):
+        if password_1 == password_2:
+            new_user = {'username': username,
+                        'password': auth.hash_password(password_1)}
+            queries.add_new_user(new_user)
+            session['username'] = username
+            return jsonify({'url': request.root_url}), 200
+        return jsonify({'url': request.root_url}), 403
+    return jsonify({'url': request.root_url}), 409
+
+
+@app.route('/login', methods=['POST'])
+def post_login_page():
+    user_data = request.get_json()
+    username = user_data['username']
+    password = user_data['password']
+    user = queries.get_user_by_username(username)
+    if user and auth.verify_password(password, user['password']):
+        session['username'] = username
+        return jsonify({'url': request.root_url}), 200
+    return jsonify({'url': request.root_url}), 401
+
+
+@app.route('/logout', methods=['POST'])
+def post_logout():
+    session.pop('username', None)
+    return redirect(url_for('index'))
 
 
 def main():

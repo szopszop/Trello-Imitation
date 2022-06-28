@@ -1,5 +1,5 @@
 import data_manager
-
+from data import database_common
 
 def get_card_status(status_id):
     """
@@ -73,3 +73,21 @@ def rename_board(title, id_):
         WHERE id = %(board_id)s;
         """, {"new_title": title,
               "board_id": id_})
+
+
+@database_common.connection_handler
+def get_user_by_username(cursor, username):
+    query = """SELECT *
+        FROM users
+        WHERE username = %(username)s
+        """
+    cursor.execute(query, {'username': username})
+    return cursor.fetchone()
+
+
+@database_common.connection_handler
+def add_new_user(cursor, new_user):
+    query = """INSERT INTO users(username, password)
+            VALUES(%(username)s, %(password)s)
+            """
+    cursor.execute(query, {'username': new_user['username'], 'password': new_user['password']})
