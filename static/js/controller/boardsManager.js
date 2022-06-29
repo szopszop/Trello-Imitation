@@ -23,7 +23,7 @@ export let boardsManager = {
             domManager.addEventListener(
                 `.add-card[data-board-id="${board.id}"]`,
                 'click',
-                saveCard
+                addNewCard
             );
         }
     },
@@ -68,8 +68,12 @@ export let boardsManager = {
     },
 };
 
-async function saveCard(clickEvent) {
-    console.log(clickEvent.target)
+async function addNewCard(clickEvent) {
+    const newCardForm = htmlFactory(htmlTemplates.cardForm)
+    const form = newCardForm()
+    const boardId = clickEvent.target.dataset.boardId
+    clickEvent.target.parentElement.innerHTML += form
+    console.log(form)
 }
 
 function showHideButtonHandler(clickEvent) {
