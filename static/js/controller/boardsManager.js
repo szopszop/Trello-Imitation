@@ -69,11 +69,29 @@ export let boardsManager = {
 };
 
 async function addNewCard(clickEvent) {
-    const newCardForm = htmlFactory(htmlTemplates.cardForm)
-    const form = newCardForm()
     const boardId = clickEvent.target.dataset.boardId
-    clickEvent.target.parentElement.innerHTML += form
-    console.log(form)
+
+    const addCardPopup = document.querySelector('#create-card');
+    const addCardForm = document.querySelector('#create-card-form');
+    const addCardTitle = document.querySelector('#card-title');
+    const addCardStatus = document.querySelector('#card-status');
+    const addCardSubmit = document.querySelector('#submit-card');
+
+    addCardPopup.style.display = 'flex'
+
+    addCardSubmit.addEventListener('click', async event => {
+        event.preventDefault();
+
+        const title = addCardTitle.value
+        const status = addCardStatus.value
+
+        await dataHandler.addNewCard(boardId, title, status)
+        await cardsManager.loadCards(boardId)
+        addCardPopup.style.display = 'none'
+
+    })
+
+
 }
 
 function showHideButtonHandler(clickEvent) {

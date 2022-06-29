@@ -3,8 +3,7 @@ export const htmlTemplates = {
     card: 2,
     form: 3,
     button: 4,
-    edit: 5,
-    cardForm: 6
+    edit: 5
 }
 
 export const builderFunctions = {
@@ -12,8 +11,7 @@ export const builderFunctions = {
     [htmlTemplates.card]: cardBuilder,
     [htmlTemplates.form]: formBuilder,
     [htmlTemplates.button]: addBoardButtonBuilder,
-    [htmlTemplates.edit]: formEditTitleBuilder,
-    [htmlTemplates.cardForm]: addCardFormBuilder
+    [htmlTemplates.edit]: formEditTitleBuilder
 };
 
 export function htmlFactory(template) {
@@ -95,23 +93,3 @@ function addBoardButtonBuilder(){
     return `<button id="addBoard" class="addBoard" type="submit">+ Add New Board +</button>`
 }
 
-function addCardFormBuilder(){
-    return `<form class="form" id="create-card-form">
-        <div class="popup-header">Create New Card</div>
-        <label for="card-title">Card<br>Title:</label>
-        <input id="card-title" type="text" required="">
-        <label for="card-status">Status:</label>
-        <select name="card-status" id="card-status">
-            
-                <option value="1">new</option>
-            
-                <option value="2">in progress</option>
-            
-                <option value="3">testing</option>
-            
-                <option value="4">done</option>
-            
-        </select>
-        <button type="submit">Create</button>
-    </form>`
-}

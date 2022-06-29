@@ -21,6 +21,19 @@ def index():
     return render_template('index.html', user=user)
 
 
+@app.route("/api/cards/<board_id>", methods=['POST'])
+@json_response
+def save_card(board_id):
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json = request.json
+        title = json.get('title')
+        status = json.get('status')
+        queries.add_new_card(board_id, title, status)
+    else:
+        return 'Content-Type not supported!'
+
+
 @app.route("/api/boards")
 @json_response
 def get_boards():

@@ -86,8 +86,16 @@ def get_user_by_username(cursor, username):
 
 
 @database_common.connection_handler
+def add_new_card(cursor, board_id, title, status):
+    query = """INSERT INTO cards(board_id, status_id, title, card_order)
+            VALUES (%(board_id)s, %(status)s, %(title)s, 1);
+            """
+    cursor.execute(query, {'board_id': board_id, 'status': status, 'title': title})
+
+
+@database_common.connection_handler
 def add_new_user(cursor, new_user):
     query = """INSERT INTO users(username, password)
-            VALUES(%(username)s, %(password)s)
+            VALUES(%(username)s, %(password)s);
             """
     cursor.execute(query, {'username': new_user['username'], 'password': new_user['password']})

@@ -1,4 +1,4 @@
-import {domManager} from "./view/domManager";
+import {dataHandler} from "./data/dataHandler";
 
 const loginPopup = document.querySelector('#login-popup');
 const loginButton = document.querySelector('#login-button');
@@ -12,6 +12,8 @@ const registerForm = document.querySelector('#register');
 const usernameRegister = document.querySelector('#username-register');
 const passwordRegister = document.querySelector('#password-register');
 const passwordRegister2 = document.querySelector('#password2-register');
+
+
 
 const popUps = document.querySelectorAll('.popup');
 const form = document.querySelectorAll('.form');
