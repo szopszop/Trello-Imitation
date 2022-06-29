@@ -108,9 +108,24 @@ async function addNewCard(clickEvent) {
 
 }
 
-function showHideButtonHandler(clickEvent) {
+
+async function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    cardsManager.loadCards(boardId);
+    if (clickEvent.target.innerHTML == 'Show') {
+        await cardsManager.loadCards(boardId);
+        clickEvent.target.innerHTML = 'Hide'
+    } else {
+        const boardColumns = document.querySelector(`.board[data-board-id="${boardId}"]`).children[1].children
+        Array.from(boardColumns).forEach(column => {
+            const content = column.children
+            const contentArray = Array.from(content)
+            for (let i=1; i<= contentArray.length; i+=2) {
+                contentArray[i].innerHTML = ''
+            }
+            });
+        clickEvent.target.innerHTML = 'Show'
+
+    }
 }
 
 async function saveForm() {
