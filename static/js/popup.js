@@ -1,3 +1,5 @@
+import {domManager} from "./view/domManager";
+
 const loginPopup = document.querySelector('#login-popup');
 const loginButton = document.querySelector('#login-button');
 const loginForm = document.querySelector('#login');
@@ -108,3 +110,4 @@ registerForm.addEventListener('submit', event => {
     registerForm.reset();
     closePopup(registerPopup);
 });
+
