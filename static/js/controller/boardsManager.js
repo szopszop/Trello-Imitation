@@ -96,8 +96,6 @@ async function addNewCard(clickEvent) {
     addCardPopup.style.display = 'flex'
 
     addCardSubmit.addEventListener('click', async event => {
-        event.preventDefault();
-
         const title = addCardTitle.value
         const status = addCardStatus.value
 
