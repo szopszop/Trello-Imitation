@@ -3,6 +3,7 @@ import {htmlFactory, htmlTemplates} from "../view/htmlFactory.js";
 import {domManager} from "../view/domManager.js";
 import {cardsManager} from "./cardsManager.js";
 import {socket} from "../main.js";
+import {columnsManager} from "./columnManager.js";
 
 
 export let boardsManager = {
@@ -29,7 +30,7 @@ export let boardsManager = {
             );
         }
     },
-    addNewBoardButton: async function(){
+    addNewBoardButton: async function () {
         const add = htmlFactory(htmlTemplates.button)
         const content = add()
         domManager.addChild("#form", content);
@@ -107,27 +108,25 @@ async function addNewCard(clickEvent) {
 
 
 }
-
-
-async function showHideButtonHandler(clickEvent) {
-    const boardId = clickEvent.target.dataset.boardId;
-    if (clickEvent.target.innerHTML == 'Show') {
-        await cardsManager.loadCards(boardId);
-        clickEvent.target.innerHTML = 'Hide'
-    } else {
-        const boardColumns = document.querySelector(`.board[data-board-id="${boardId}"]`).children[1].children
-        Array.from(boardColumns).forEach(column => {
-            const content = column.children
-            const contentArray = Array.from(content)
-            for (let i=1; i<= contentArray.length; i+=2) {
-                contentArray[i].innerHTML = ''
-            }
-            });
-        clickEvent.target.innerHTML = 'Show'
-
-    }
-}
-
+//
+//
+// async function showHideButtonHandler(clickEvent) {
+//     const boardId = clickEvent.target.dataset.boardId;
+//     if (clickEvent.target.innerText === 'Show') {
+//         await cardsManager.loadCards(boardId);
+//         clickEvent.target.innerText = 'Hide'
+//     } else {
+//         const boardColumns = document.querySelector(`.board[data-board-id="${boardId}"]`).children[1].children
+//         Array.from(boardColumns).forEach(column => {
+//             const content = column.children
+//             const contentArray = Array.from(content)
+//             for (let i = 1; i <= contentArray.length; i += 2) {
+//                 contentArray[i].innerHTML = ''
+//             }
+//         });
+//         clickEvent.target.innerText = 'Show'
+//     }
+// }
 async function saveForm() {
     const title = document.getElementById('add-board-input').value
     await dataHandler.createNewBoard(title);
@@ -176,6 +175,27 @@ function checkForLoadedContent() {
     return openedBoardsId
 }
 
-async function loadBoardContent(boardId) {
-    await cardsManager.loadCards(boardId);
+// async function loadBoardContent(boardId) {
+//     await cardsManager.loadCards(boardId);
+// }
+
+
+
+function showHideButtonHandler(clickEvent) {
+    const boardId = clickEvent.target.dataset.boardId;
+    if (domManager.hasChild(`.board-columns[data-board-id="${boardId}"]`)) {
+        domManager.removeAllChildren(`.board-columns[data-board-id="${boardId}"]`);
+    } else {
+        loadBoardContent(boardId);
+    }
+}
+
+
+function loadBoardContent(boardId) {
+    columnsManager.loadColumns(boardId)
+        .then(() => {
+            cardsManager.loadCards(boardId)
+
+        })
+        .catch(err => console.log(err));
 }

@@ -128,6 +128,12 @@ def post_logout():
     return redirect(url_for('index'))
 
 
+@app.route('/api/statuses')
+@json_response
+def get_statuses():
+    return queries.get_statuses()
+
+
 def main():
     socketio.run(app, debug=True)
     # app.run(debug=True)

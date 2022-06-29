@@ -82,3 +82,5 @@ ALTER TABLE ONLY cards
 
 ALTER TABLE ONLY cards
     ADD CONSTRAINT fk_cards_status_id FOREIGN KEY (status_id) REFERENCES statuses(id);
+
+ALTER TABLE ONLY boards

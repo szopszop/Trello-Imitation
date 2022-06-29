@@ -3,7 +3,9 @@ export const htmlTemplates = {
     card: 2,
     form: 3,
     button: 4,
-    edit: 5
+    edit: 5,
+    headers: 6,
+    column: 7
 }
 
 export const builderFunctions = {
@@ -11,7 +13,9 @@ export const builderFunctions = {
     [htmlTemplates.card]: cardBuilder,
     [htmlTemplates.form]: formBuilder,
     [htmlTemplates.button]: addBoardButtonBuilder,
-    [htmlTemplates.edit]: formEditTitleBuilder
+    [htmlTemplates.edit]: formEditTitleBuilder,
+    [htmlTemplates.headers]: headerColumnBuilder,
+    [htmlTemplates.column]: columnBuilder
 };
 
 export function htmlFactory(template) {
@@ -33,13 +37,17 @@ function boardBuilder(board, edit=false) {
                 `;}
     return `<div class="board-container">
                 <section class="board" data-board-id=${board.id}>
-                
-                <div class="board-header"><span class="board-title" data-board-id=${board.id}>${board.title}</span>
-                    <button class="add-card" data-board-id="${board.id}">Add Card</button>
-                    <button class="toggle-board-button" data-board-id="${board.id}">Show</button>
-                </div>
-            
-            <div class="board-columns">
+                    <div class="board-header" data-board-id=${board.id}><span class="board-title" data-board-id=${board.id}>${board.title}</span>
+                        <button class="add-card" data-board-id="${board.id}">Add Card</button>
+                        <button class="toggle-board-button" data-board-id="${board.id}">Show</button>
+                    </div>
+                    <div class="board-columns" data-board-id="${board.id}"></div>
+                </section>
+            </div>`;
+}
+
+function headerColumnBuilder() {
+    return `<div class="board-columns">
                 <div class="board-column new">
                     <div class="board-column-title">New</div>
                     <div class="board-column-content"></div>
@@ -59,10 +67,7 @@ function boardBuilder(board, edit=false) {
                     <div class="board-column-title">Done</div>
                     <div class="board-column-content"></div>
                 </div>
-            </div>
-    
-    </section>
-</div>`;
+            </div>`
 }
 
 function cardBuilder(card) {
@@ -88,3 +93,11 @@ function addBoardButtonBuilder(){
     return `<button id="addBoard" class="addBoard" type="submit">+ Add New Board +</button>`
 }
 
+
+
+function columnBuilder(column, boardId) {
+    return `<div class="board-column" data-column-id="${column.id}" data-board-id="${boardId}">
+                <div class="board-column-title" data-column-id="${column.id}" data-board-id="${boardId}">${column.title}</div>
+                <div class="board-column-content" data-column-id="${column.id}" data-board-id="${boardId}"></div>
+            </div>`
+}

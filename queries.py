@@ -99,3 +99,10 @@ def add_new_user(cursor, new_user):
             VALUES(%(username)s, %(password)s);
             """
     cursor.execute(query, {'username': new_user['username'], 'password': new_user['password']})
+
+
+def get_statuses():
+    return data_manager.execute_select(
+        """
+        SELECT * FROM statuses
+        """)
