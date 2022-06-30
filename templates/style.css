@@ -1,3 +1,5 @@
+@import '../node_modules/dragula';
+
 :root{
     --border-radius: 3px;
     --status-1: #590000;

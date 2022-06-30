@@ -120,7 +120,7 @@ def delete_board(cursor, board_id):
 
 @database_common.connection_handler
 def delete_card(cursor, card_id):
-    query = f"""
+    query = """
             DELETE FROM cards
             WHERE id = %(id)s;
             """

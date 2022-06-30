@@ -40,7 +40,7 @@ function boardBuilder(board, edit=false) {
                     <div class="board-header" data-board-id=${board.id}><span class="board-title" data-board-id=${board.id}>${board.title}</span>
                         <button class="add-card" data-board-id="${board.id}">Add Card</button>
                         <button class="toggle-board-button" data-board-id="${board.id}">Show</button>
-                        <button class="delete-board-button" data-board-id="${board.id}"><i class="fas fa-trash-alt delete-board-button" data-board-id="${board.id}"></i></button>
+                        <button class="delete-board-button" data-board-id="${board.id}"><i class="fas fa-trash-alt" data-board-id="${board.id}"></i></button>
                     </div>
                     <div class="board-columns" data-board-id="${board.id}"></div>
                 </section>
@@ -74,7 +74,7 @@ function headerColumnBuilder() {
 function cardBuilder(card) {
     return  `<div class="card" data-card-id="${card.id}" >
                 <div class="card-remove" data-card-id="${card.id}">
-                    <i class="fas fa-trash-alt card-remove" data-card-id="${card.id}"></i>
+                    <i class="fas fa-trash-alt" data-card-id="${card.id}"></i>
                 </div>
                 <div class="card-title">${card.title}</div>
              </div>`;

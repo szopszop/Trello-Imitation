@@ -65,7 +65,7 @@ export let boardsManager = {
             board.remove();
         });
         await this.loadBoards();
-
+        console.log('Boards loaded xd')
         boardsIdToLoad.forEach(boardId => {
             loadBoardContent(boardId);
             // domManager.toggleCSSClasses(`.fas[data-board-id="${boardId}"]`, 'fa-chevron-down', 'fa-chevron-up');
@@ -151,12 +151,6 @@ async function showHideButtonHandler(clickEvent) {
         clickEvent.target.innerHTML = 'Show'
     } else {
         await loadBoardContent(boardId);
-        setTimeout(function() { domManager.addEventListener(`.card-remove`,
-                                        'click',
-                                        deleteCard)}, 1000)
-        // domManager.addEventListener(`.card-remove`,
-        //                             'click',
-        //                             deleteCard)
         clickEvent.target.innerHTML = 'Hide'
     }
 }
@@ -164,7 +158,13 @@ async function showHideButtonHandler(clickEvent) {
 function loadBoardContent(boardId) {
     columnsManager.loadColumns(boardId)
         .then(() => {
-            cardsManager.loadCards(boardId)
+            return cardsManager.loadCards(boardId)
+        })
+        .then(() => {
+            const cards = document.querySelectorAll(`.card-remove`)
+            cards.forEach((card) => {
+                card.addEventListener('click', deleteCard)
+            });
         })
         .catch(err => console.log(err));
 }
@@ -181,4 +181,14 @@ function deleteCard(clickEvent) {
     console.log(cardId)
     dataHandler.deleteCard(cardId);
     socket.send('dupa');
+}
+
+
+const columns = document.querySelectorAll(".board-column-content")
+const cards = document.querySelectorAll(".card")
+
+document.querySelector('body').addEventListener('load', dupa)
+
+function dupa() {
+    dragula([columns, columns]);
 }
