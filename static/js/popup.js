@@ -30,7 +30,7 @@ const closePopup = element => {
 
 if (loginButton) {
     loginButton.addEventListener('click', () => {
-
+        console.log('test')
         showPopup(loginPopup);
     })
 }
