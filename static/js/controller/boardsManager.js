@@ -183,7 +183,6 @@ function checkForLoadedContent() {
 
 function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    console.log(clickEvent.target.innerHTML)
     if (domManager.hasChild(`.board-columns[data-board-id="${boardId}"]`)) {
         domManager.removeAllChildren(`.board-columns[data-board-id="${boardId}"]`);
         clickEvent.target.innerHTML = 'Show'
