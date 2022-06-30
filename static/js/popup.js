@@ -1,5 +1,3 @@
-import {dataHandler} from "./data/dataHandler";
-
 const loginPopup = document.querySelector('#login-popup');
 const loginButton = document.querySelector('#login-button');
 const loginForm = document.querySelector('#login');
@@ -32,7 +30,7 @@ const closePopup = element => {
 
 if (loginButton) {
     loginButton.addEventListener('click', () => {
-
+        console.log('test')
         showPopup(loginPopup);
     })
 }

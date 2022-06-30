@@ -185,8 +185,10 @@ function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
     if (domManager.hasChild(`.board-columns[data-board-id="${boardId}"]`)) {
         domManager.removeAllChildren(`.board-columns[data-board-id="${boardId}"]`);
+        clickEvent.target.innerHTML = 'Show'
     } else {
         loadBoardContent(boardId);
+        clickEvent.target.innerHTML = 'Hide'
     }
 }
 
