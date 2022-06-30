@@ -89,6 +89,7 @@ def delete_board(board_id):
     if content_type == 'application/json':
         json = request.json
         board_id = json.get('id')
+        print(board_id)
         queries.delete_board(board_id)
     else:
         return 'Content-Type not supported!'
@@ -102,6 +103,18 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
     return queries.get_cards_for_board(board_id)
+
+
+@app.route("/api/cards/<card_id>", methods=['DELETE'])
+@json_response
+def delete_card_from_board(card_id):
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json = request.json
+        card_id = json.get('id')
+        queries.delete_card(card_id)
+    else:
+        return 'Content-Type not supported!'
 
 
 @app.route('/register', methods=['POST'])

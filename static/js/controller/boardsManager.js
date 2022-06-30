@@ -57,23 +57,6 @@ export let boardsManager = {
             saveForm
         )
     },
-    // displayNewBoard: async function () {
-    //     const boards = await dataHandler.getBoards();
-    //     const boardBuilder = htmlFactory(htmlTemplates.board);
-    //     const boardId = boards[boards.length - 1].id
-    //     const content = boardBuilder(boards[boards.length - 1]);
-    //     domManager.addChild("#root", content);
-    //     domManager.addEventListener(
-    //         `.toggle-board-button[data-board-id="${boardId}"]`,
-    //         "click",
-    //         showHideButtonHandler
-    //     );
-    //     domManager.addEventListener(
-    //         `.board[data-board-id="${boardId}"]`,
-    //         "click",
-    //         editTitle
-    //     );
-    // },
     reloadBoards: async function () {
         const boardsIdToLoad = checkForLoadedContent();
         console.log(boardsIdToLoad, 'board to load')
@@ -117,7 +100,6 @@ async function addNewCard(clickEvent) {
 async function saveForm() {
     const title = document.getElementById('add-board-input').value
     await dataHandler.createNewBoard(title);
-    // boardsManager.displayNewBoard();
     socket.send('aaaaaaaaaaaaaaaaaaaa');
 
 }
@@ -162,17 +144,22 @@ function checkForLoadedContent() {
     return openedBoardsId
 }
 
-function showHideButtonHandler(clickEvent) {
+async function showHideButtonHandler(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
     if (domManager.hasChild(`.board-columns[data-board-id="${boardId}"]`)) {
         domManager.removeAllChildren(`.board-columns[data-board-id="${boardId}"]`);
         clickEvent.target.innerHTML = 'Show'
     } else {
-        loadBoardContent(boardId);
+        await loadBoardContent(boardId);
+        setTimeout(function() { domManager.addEventListener(`.card-remove`,
+                                        'click',
+                                        deleteCard)}, 1000)
+        // domManager.addEventListener(`.card-remove`,
+        //                             'click',
+        //                             deleteCard)
         clickEvent.target.innerHTML = 'Hide'
     }
 }
-
 
 function loadBoardContent(boardId) {
     columnsManager.loadColumns(boardId)
@@ -184,7 +171,14 @@ function loadBoardContent(boardId) {
 
 function deleteBoard(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
-    console.log(boardId)
     dataHandler.deleteBoard(boardId);
+    socket.send('dupa');
+}
+
+
+function deleteCard(clickEvent) {
+    const cardId = clickEvent.target.dataset.cardId;
+    console.log(cardId)
+    dataHandler.deleteCard(cardId);
     socket.send('dupa');
 }

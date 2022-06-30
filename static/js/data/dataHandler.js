@@ -32,6 +32,9 @@ export let dataHandler = {
     },
     deleteBoard: async function (boardId){
         return await apiDelete(`/api/boards/${boardId}`, {'id': boardId})
+    },
+    deleteCard: async function (cardId){
+        return await apiDelete(`/api/cards/${cardId}`, {'id': cardId})
     }
 };
 
@@ -55,11 +58,11 @@ async function apiPost(url, payload) {
     }
 }
 
-async function apiDelete(url, id) {
+async function apiDelete(url, payload) {
     let response = await fetch(url, {
         method: 'DELETE',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({'id': id})
+        body: JSON.stringify({'id': payload.id})
     });
     if (response.ok) {
         return await response.json();

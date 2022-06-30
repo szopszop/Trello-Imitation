@@ -110,10 +110,18 @@ def get_statuses():
 
 
 @database_common.connection_handler
-def delete_board(cursor, id_):
+def delete_board(cursor, board_id):
     query = f"""
             DELETE FROM boards
             WHERE id = %(id)s;
             """
-    cursor.execute(query, {'id': int(id_['id'])})
+    cursor.execute(query, {'id': board_id})
 
+
+@database_common.connection_handler
+def delete_card(cursor, card_id):
+    query = f"""
+            DELETE FROM cards
+            WHERE id = %(id)s;
+            """
+    cursor.execute(query, {'id': card_id})
