@@ -77,7 +77,19 @@ def update_board(board_id):
         json = request.json
         new_title = json.get('title')
         id_ = json.get('id')
-        return queries.rename_board(new_title, id_)
+        queries.rename_board(new_title, id_)
+    else:
+        return 'Content-Type not supported!'
+
+
+@app.route("/api/boards/<board_id>", methods=['DELETE'])
+@json_response
+def delete_board(board_id):
+    content_type = request.headers.get('Content-Type')
+    if content_type == 'application/json':
+        json = request.json
+        board_id = json.get('id')
+        queries.delete_board(board_id)
     else:
         return 'Content-Type not supported!'
 

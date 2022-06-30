@@ -1,6 +1,7 @@
 import data_manager
 from data import database_common
 
+
 def get_card_status(status_id):
     """
     Find the first status matching the given id
@@ -106,3 +107,13 @@ def get_statuses():
         """
         SELECT * FROM statuses
         """)
+
+
+@database_common.connection_handler
+def delete_board(cursor, id_):
+    query = f"""
+            DELETE FROM boards
+            WHERE id = %(id)s;
+            """
+    cursor.execute(query, {'id': int(id_['id'])})
+

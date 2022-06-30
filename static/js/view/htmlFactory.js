@@ -40,6 +40,7 @@ function boardBuilder(board, edit=false) {
                     <div class="board-header" data-board-id=${board.id}><span class="board-title" data-board-id=${board.id}>${board.title}</span>
                         <button class="add-card" data-board-id="${board.id}">Add Card</button>
                         <button class="toggle-board-button" data-board-id="${board.id}">Show</button>
+                        <button class="delete-board-button" data-board-id="${board.id}"><i class="fas fa-trash-alt delete-board-button" data-board-id="${board.id}"></i></button>
                     </div>
                     <div class="board-columns" data-board-id="${board.id}"></div>
                 </section>
