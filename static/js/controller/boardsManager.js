@@ -186,4 +186,5 @@ function deleteBoard(clickEvent) {
     const boardId = clickEvent.target.dataset.boardId;
     console.log(boardId)
     dataHandler.deleteBoard(boardId);
+    socket.send('dupa');
 }
