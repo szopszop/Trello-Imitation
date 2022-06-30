@@ -59,7 +59,7 @@ async function apiPut(url, payload) {
     let response = await fetch(url, {
         method: 'PUT',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({'title': payload.title})
+        body: JSON.stringify({'title': payload.title, 'id': payload.id})
     });
     if (response.ok) {
         return await response.json();
