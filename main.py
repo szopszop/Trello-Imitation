@@ -59,8 +59,8 @@ def update_board(board_id):
         return 'Content-Type not supported!'
 
 
-@app.route("/api/boards/<int:board_id>/cards/")
-    return queires.get_boards()
+# @app.route("/api/boards/<int:board_id>/cards/")
+#     return queires.get_boards()
 
 
 @app.route("/get-cards/<int:board_id>")
