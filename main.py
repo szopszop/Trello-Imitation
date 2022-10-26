@@ -17,7 +17,7 @@ socketio = SocketIO(app)
 
 
 mimetypes.add_type('application/javascript', '.js')
-app.secret_key = '0e7481098709f45cf9c22425be8d2112150d342e7cfb0bd4'
+app.secret_key = ' '
 load_dotenv()
 
 
