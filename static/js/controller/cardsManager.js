@@ -12,12 +12,8 @@ export let cardsManager = {
             domManager.addEventListener(
                 `.card[data-card-id="${card.id}"]`,
                 "click",
-                deleteButtonHandler
+
             );
         }
     },
 };
-
-function deleteButtonHandler(clickEvent) {
-
-}

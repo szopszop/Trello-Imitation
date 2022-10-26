@@ -24,3 +24,4 @@ export let domManager = {
         return parent.hasChildNodes();
     },
 };
+

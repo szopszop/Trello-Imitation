@@ -182,13 +182,18 @@ function deleteCard(clickEvent) {
     dataHandler.deleteCard(cardId);
     socket.send('dupa');
 }
+import {Dragula} from "../../../nod"
 
-
-const columns = document.querySelectorAll(".board-column-content")
+const columns = document.querySelector(".board-columns")
 const cards = document.querySelectorAll(".card")
 
-document.querySelector('body').addEventListener('load', dupa)
 
-function dupa() {
-    dragula([columns, columns]);
+document.querySelector('body').addEventListener('load', dragNdrop)
+
+
+function dragNdrop() {
+    console.log('dragNdrop')
+    dragula([columns]);
 }
+
+dragNdrop()

@@ -130,7 +130,7 @@ def post_register_page():
                         'password': auth.hash_password(password_1)}
             queries.add_new_user(new_user)
             session['username'] = username
-            return jsonify({'url': request.root_url}), 200
+            return jsonify({'url': request.root_url}), 201
         return jsonify({'url': request.root_url}), 403
     return jsonify({'url': request.root_url}), 409
 
